@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dgc-frontend
+  namespace: dgc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dgc-frontend
+  template:
+    metadata:
+      labels:
+        app: dgc-frontend
+    spec:
+      containers:
+      - name: dgc-frontend
+        image: matthew10125/dgc-frontend
+        ports:
+        - containerPort: 3000

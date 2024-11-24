@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qrcode-frontend-deployment
+  namespace: qrcode
+  labels:
+    app: qrcode-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: qrcode-frontend
+  template:
+    metadata:
+      labels:
+        app: qrcode-frontend
+    spec:
+      containers:
+      - name: qrcode-frontend
+        image: matthew10125/qrcode-frontend:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qrcode-frontend
+  namespace: qrcode
+spec:
+  selector:
+    app: qrcode-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: qrcode
+  name: qrcode-http
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+    - host: deguzman.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: qrcode-frontend
+                port:
+                  number: 80
+

@@ -1,0 +1,16 @@
+services:
+  db:
+    container_name: postgres
+    restart: always
+    image: postgres:17.0
+    command: "postgres -c config_file=/config/postgresql.conf"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER?error}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD?error}
+      POSTGRES_DB: ${POSTGRES_DB?error}
+      PGDATA: "/data"
+    volumes:
+      - /pg/data:/data
+      - ./pgconfig:/config/
+    ports:
+      - 5432:5432
