@@ -5,26 +5,15 @@ metadata:
   namespace: dgc
   annotations:
     #nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    # cert-manager.io/issuer: "letsencrypt-staging"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
     - deguzman.cloud
-    - www.deguzman.cloud
     secretName: dgc-tls
   rules:
-  - host: www.deguzman.cloud
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: dgc-frontend-svc
-              port:
-                number: 80
   - host: deguzman.cloud
     http:
       paths:

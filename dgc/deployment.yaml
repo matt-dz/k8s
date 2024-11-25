@@ -16,5 +16,6 @@ spec:
       containers:
       - name: dgc-frontend
         image: matthew10125/dgc-frontend
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
