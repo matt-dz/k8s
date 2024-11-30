@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: dgc
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:17
+          ports:
+            - containerPort: 5432
+          envFrom:
+          - secretRef:
+              name: postgres-secrets
+          - configMapRef:
+              name: postgres-config
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /data
+            - name: postgres-config
+              mountPath: /config
+                #command: ["postgres", "-c", "config_file=/config/postgresql.conf"]
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+        - name: postgres-config
+          persistentVolumeClaim:
+            claimName: config-pvc
+
