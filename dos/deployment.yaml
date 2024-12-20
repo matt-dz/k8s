@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dos-p4
+  namespace: dgc
+  labels:
+    app: dos-p4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dos-p4
+  template:
+    metadata:
+      labels:
+        app: dos-p4
+    spec:
+      containers:
+      - name: dos-p4
+        image: matthew10125/p4:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080

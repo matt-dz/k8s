@@ -19,4 +19,12 @@ spec:
       port: 443
       protocol: TCP
       targetPort: 443
+    - name: proxied-tcp-5432
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
+    - name: proxied-tcp-6379
+      port: 6379
+      targetPort: 6379
+      protocol: TCP
   type: LoadBalancer

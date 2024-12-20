@@ -30,7 +30,12 @@ spec:
               mountPath: /data
             - name: postgres-config
               mountPath: /config
-                #command: ["postgres", "-c", "config_file=/config/postgresql.conf"]
+          command: ["postgres", "-c", "config_file=/config/postgresql.conf"]
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+      nodeName: lois
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:

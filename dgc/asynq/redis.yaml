@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asynq-redis
+  namespace: dgc
+  labels:
+    app: redis
+    service: asynq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+      service: asynq
+  template:
+    metadata:
+      labels:
+        app: redis
+        service: asynq
+    spec:
+      containers:
+        - name: asynq-redis
+          image: redis:7.4.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: asynq-storage
+              mountPath: /data
+            - name: asynq-config
+              mountPath: /config
+          command: ["redis-server", "/config/redis.conf"]
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+      nodeName: lois
+      volumes:
+        - name: asynq-storage
+          persistentVolumeClaim:
+            claimName: asynq-data
+        - name: asynq-config
+          persistentVolumeClaim:
+            claimName: asynq-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-svc
+  namespace: dgc
+  labels:
+    app: redis
+    service: asynq
+spec:
+  selector:
+    app: redis
+    service: asynq
+  ports:
+    - port: 6379
+      targetPort: 6379
+  type: ClusterIP
