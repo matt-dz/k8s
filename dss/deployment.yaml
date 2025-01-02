@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dss
+  labels:
+    app: dss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dss
+  template:
+    metadata:
+      labels:
+        app: dss
+    spec:
+      containers:
+        - name: dss
+          image: matthew10125/dss:latest
+          ports:
+            - containerPort: 80
+          envFrom:
+          - secretRef:
+              name: dss-secrets
+          volumeMounts:
+            - name: dss-storage
+              mountPath: /mnt/dss
+      nodeName: lois
+      volumes:
+        - name: dss-storage
+          persistentVolumeClaim:
+            claimName: dss-storage-pvc
