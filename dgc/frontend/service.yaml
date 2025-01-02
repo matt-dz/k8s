@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: dgc-frontend-svc
   namespace: dgc
+  labels:
+    app: dgc-frontend
 spec:
   selector:
     app: dgc-frontend

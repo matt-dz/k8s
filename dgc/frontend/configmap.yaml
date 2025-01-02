@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-configmap
+  labels:
+    app: dgc-frontend
+data:
+  API_BASE_URL: https://deguzman.cloud
+  ENV: PROD

@@ -5,6 +5,7 @@ metadata:
   namespace: dgc
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10g"
 
 spec:
   ingressClassName: nginx
@@ -12,6 +13,8 @@ spec:
   - hosts:
     - deguzman.cloud
     - api.deguzman.cloud
+    - auth.deguzman.cloud
+    - dss.deguzman.cloud
     secretName: dgc-tls
   rules:
   - host: deguzman.cloud
@@ -24,6 +27,14 @@ spec:
               name: dgc-frontend-svc
               port:
                 number: 80
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: dgc-backend-svc
+              port:
+                number: 80
+
   - host: api.deguzman.cloud
     http:
       paths:
@@ -32,5 +43,26 @@ spec:
           backend:
             service:
               name: dgc-backend-svc
+              port:
+                number: 80
+
+  - host: auth.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: deguzman-auth
+              port:
+                number: 80
+  - host: dss.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: dss
               port:
                 number: 80
