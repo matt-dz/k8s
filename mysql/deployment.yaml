@@ -18,24 +18,24 @@ spec:
         - name: mysql
           image: mysql:9.1
           ports:
-            - containerPort: 3306
+          - containerPort: 3306
           envFrom:
           - secretRef:
-              name: mysql-secrets
+              name: mysql-env
           volumeMounts:
-            - name: mysql-storage
-              mountPath: /var/lib/mysql
-            - name: mysql-config
-              mountPath: /etc/mysql/conf.d
+          - name: mysql-config
+            mountPath: /etc/mysql/conf.d
+          - name: mysql-storage
+            mountPath: /var/lib/mysql
       securityContext:
         runAsUser: 999
         runAsGroup: 999
         fsGroup: 999
       nodeName: lois
       volumes:
-        - name: mysql-storage
-          persistentVolumeClaim:
-            claimName: mysql-data-pvc
-        - name: mysql-config
-          persistentVolumeClaim:
-            claimName: mysql-config-pvc
+      - name: mysql-config
+        persistentVolumeClaim:
+          claimName: mysql-config-pvc
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-data-pvc
