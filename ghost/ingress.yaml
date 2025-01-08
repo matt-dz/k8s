@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ghost-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - blog.deguzman.cloud
+    - blog-admin.deguzman.cloud
+    secretName: dgc-tls
+
+  rules:
+  - host: blog.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: ghost-service
+              port:
+                number: 2368
+
+  - host: blog-admin.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: ghost-service
+              port:
+                number: 2368

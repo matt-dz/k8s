@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ghost-config-prod
+  labels:
+    app: ghost
+type: Opaque
+stringData:
+  config.production.json: |-
+    {
+      "url": "",
+
+      "admin": {
+          "url": "",
+      },
+
+      "database": {
+          "client": "mysql",
+          "connection": {
+              "host": "",
+              "port": "3306",
+              "user": "root",
+              "password": "",
+              "database": ""
+          }
+      },
+
+      "server": {
+          "host": "0.0.0.0",
+          "port": 2368
+      },
+
+      "mail": {
+          "from": "matthew@deguzman.cloud",
+          "transport": "SMTP",
+          "options": {
+              "service": "Sengrid",
+              "host": "smtp.sendgrid.net",
+              "port": 587,
+              "auth": {
+                  "user": "apikey",
+                  "pass": "key",
+              }
+          }
+      },
+
+      "logging": {
+        "transports": [
+          "stdout"
+        ]
+      }
+    }
