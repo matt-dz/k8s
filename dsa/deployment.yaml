@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dsa-frontend
+  labels:
+    app: dsa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dsa-frontend
+  template:
+    metadata:
+      labels:
+        app: dsa-frontend
+    spec:
+      containers:
+      - name: dgc-frontend
+        image: matthew10125/cop3530
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
