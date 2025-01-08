@@ -15,6 +15,9 @@ spec:
     - api.deguzman.cloud
     - auth.deguzman.cloud
     - dss.deguzman.cloud
+    - blog.deguzman.cloud
+    - dsa.deguzman.cloud
+    - qr.deguzman.cloud
     secretName: dgc-tls
   rules:
   - host: deguzman.cloud
@@ -64,5 +67,38 @@ spec:
           backend:
             service:
               name: dss
+              port:
+                number: 80
+
+  - host: dsa.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: dsa-frontend
+              port:
+                number: 80
+
+  - host: qr.deguzman.cloud
+    http:
+      paths:
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: qrcode-backend
+              port:
+                number: 80
+
+  - host: qr.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: qrcode-frontend
               port:
                 number: 80

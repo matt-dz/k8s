@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qrcode-frontend
+  labels:
+    app: qrcode-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qrcode-frontend
+  template:
+    metadata:
+      labels:
+        app: qrcode-frontend
+    spec:
+      containers:
+      - name: qrcode-frontend
+        image: matthew10125/qrcode-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
