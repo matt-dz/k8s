@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: dgc
-  name: postgres-pv
+  name: immich-postgres-pv
 spec:
   capacity:
     storage: 5Gi
@@ -12,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    path: /srv/nfs/postgres/test/data
+    path: /srv/nfs/usb1/immich/postgres/data
     server: 10.0.0.249
     readOnly: false
 
@@ -20,22 +19,20 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: dgc
-  name: postgres-pvc
+  name: immich-postgres-pvc
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi
   storageClassName: nfs
 
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: dgc
-  name: config-pv
+  name: immich-postgres-config-pv
 spec:
   capacity:
     storage: 1Mi
@@ -45,7 +42,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    path: /srv/nfs/postgres/test/config
+    path: /srv/nfs/usb1/immich/postgres/config
     server: 10.0.0.249
     readOnly: true
 
@@ -53,8 +50,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: dgc
-  name: config-pvc
+  name: immich-postgres-config-pvc
 spec:
   accessModes:
     - ReadOnlyMany

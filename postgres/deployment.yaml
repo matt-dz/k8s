@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: dgc
   name: postgres
   labels:
     app: postgres
@@ -20,17 +19,20 @@ spec:
           image: postgres:17
           ports:
             - containerPort: 5432
+          env:
+          - name: PGDATA
+            value: "/data"
+          - name: POSTGRES_INITDB_ARGS
+            value: "-c config_file=/config/postgresql.conf"
           envFrom:
           - secretRef:
               name: postgres-secrets
-          - configMapRef:
-              name: postgres-config
           volumeMounts:
             - name: postgres-storage
               mountPath: /data
             - name: postgres-config
-              mountPath: /config
-          command: ["postgres", "-c", "config_file=/config/postgresql.conf"]
+              mountPath: /config/postgresql.conf
+              subPath: postgresql.conf
       securityContext:
         runAsUser: 999
         runAsGroup: 999
@@ -39,8 +41,8 @@ spec:
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
-            claimName: postgres-pvc
+            claimName: immich-postgres-pvc
         - name: postgres-config
-          persistentVolumeClaim:
-            claimName: config-pvc
+          configMap:
+            name: postgres-config
 
