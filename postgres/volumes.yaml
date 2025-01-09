@@ -27,35 +27,3 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: nfs
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: immich-postgres-config-pv
-spec:
-  capacity:
-    storage: 1Mi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadOnlyMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  nfs:
-    path: /srv/nfs/usb1/immich/postgres/config
-    server: 10.0.0.249
-    readOnly: true
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: immich-postgres-config-pvc
-spec:
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 1Mi
-  storageClassName: nfs
-
