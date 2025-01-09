@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: immich-redis-pv
+  labels:
+    app: redis
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  nfs:
+    path: /srv/nfs/usb1/immich/redis
+    server: peter.local
+    readOnly: false
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-redis-pvc
+  labels:
+    app: redis
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: nfs

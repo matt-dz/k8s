@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.4.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+            - name: redis-config
+              mountPath: /config/redis.conf
+              subPath: redis.conf
+          command: ["redis-server", "/config/redis.conf"]
+      nodeName: lois
+      volumes:
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: immich-redis-pvc
+        - name: redis-config
+          secret:
+            secretName: redis-config
