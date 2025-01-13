@@ -13,14 +13,15 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    path: /srv/nfs/ghost/content
-    server: 10.0.0.249
+    path: <nfs_path>
+    server: <server_ip>
     readOnly: false
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: ghost-pvc
+  namespace: ghost
   labels:
     app: ghost
 spec:

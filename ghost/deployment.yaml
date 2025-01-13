@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ghost
+  namespace: ghost
   labels:
     app: ghost
 spec:
@@ -23,24 +24,22 @@ spec:
         env:
         - name: NODE_ENV
           value: production
-        - name: DEBUG
-          value: DEBUG=ghost:*,ghost-config
 
         volumeMounts:
-          #- name: ghost-content
-          #  mountPath: /var/lib/ghost/content
-          #  readOnly: false
+        - name: ghost-content
+          mountPath: /var/lib/ghost/content
+          readOnly: false
         - name: ghost-config-prod
           mountPath: /var/lib/ghost/config.production.json
           subPath: config.production.json
         - name: tmp # This is the temporary volume mount to allow loading themes
           mountPath: /tmp
           readOnly: false
-      nodeName: lois
+
       volumes:
-        #- name: ghost-content
-        #  persistentVolumeClaim:
-        #    claimName: ghost-pvc
+      - name: ghost-content
+        persistentVolumeClaim:
+          claimName: ghost-pvc
       - name: ghost-config
         secret:
           secretName: ghost-env

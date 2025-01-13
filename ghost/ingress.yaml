@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ghost-ingress
+  namespace: ghost
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 
@@ -11,7 +12,7 @@ spec:
   - hosts:
     - blog.deguzman.cloud
     - blog-admin.deguzman.cloud
-    secretName: dgc-tls
+    secretName: ghost-tls
 
   rules:
   - host: blog.deguzman.cloud

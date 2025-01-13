@@ -1,27 +1,27 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mysql-data-pv
+  name: mysql-pv
   labels:
     app: mysql
 spec:
   capacity:
-    storage: 5Gi
+    storage: 1Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    path: /srv/nfs/mysql/ghost/data
-    server: 10.0.0.249
+    path: <nfs_path>
+    server: <server_ip>
     readOnly: false
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-data-pvc
+  name: mysql-pvc
   labels:
     app: mysql
 spec:
@@ -31,37 +31,3 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: nfs
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysql-config-pv
-  labels:
-    app: mysql
-spec:
-  capacity:
-    storage: 1Mi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadOnlyMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs
-  nfs:
-    path: /srv/nfs/mysql/ghost/configs
-    server: 10.0.0.249
-    readOnly: true
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-config-pvc
-spec:
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 1Mi
-  storageClassName: nfs
-

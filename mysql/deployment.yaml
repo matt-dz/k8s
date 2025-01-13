@@ -23,19 +23,18 @@ spec:
           - secretRef:
               name: mysql-env
           volumeMounts:
-          - name: mysql-config
-            mountPath: /etc/mysql/conf.d
-          - name: mysql-storage
+          - name: mysql-data
             mountPath: /var/lib/mysql
+          #- name: mysql-config
+          #  mountPath: /etc/mysql/conf.d
       securityContext:
-        runAsUser: 999
-        runAsGroup: 999
-        fsGroup: 999
-      nodeName: lois
+        runAsUser: 65535
+        runAsGroup: 65535
+        fsGroup: 65535
       volumes:
-      - name: mysql-config
+      - name: mysql-data
         persistentVolumeClaim:
-          claimName: mysql-config-pvc
-      - name: mysql-storage
-        persistentVolumeClaim:
-          claimName: mysql-data-pvc
+          claimName: mysql-pvc
+      #- name: mysql-config
+      #  configMap:
+      #    name: mysql-config

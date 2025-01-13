@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: ghost-config-prod
+  namespace: ghost
   labels:
     app: ghost
 type: Opaque
@@ -11,7 +12,7 @@ stringData:
       "url": "",
 
       "admin": {
-          "url": "",
+        "url": ""
       },
 
       "database": {
@@ -39,7 +40,7 @@ stringData:
               "port": 587,
               "auth": {
                   "user": "apikey",
-                  "pass": "key",
+                  "pass": ""
               }
           }
       },
@@ -50,3 +51,4 @@ stringData:
         ]
       }
     }
+
