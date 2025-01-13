@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qrcode
+  name: qrcode-backend
+  namespace: qrcode
   labels:
     app: qrcode-backend
 spec:
@@ -19,12 +20,13 @@ spec:
           image: matthew10125/qrcode-backend
           imagePullPolicy: Always
           volumeMounts:
-          - name: qrcode-storage
+          - name: qrcode-data
             mountPath: /srv/qrcode
           ports:
             - containerPort: 80
+              name: backend-port
       nodeName: lois
       volumes:
-      - name: qrcode-storage
+      - name: qrcode-data
         persistentVolumeClaim:
-          claimName: qrcode-backend-pvc
+          claimName: qrcode-pvc

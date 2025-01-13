@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: qrcode-frontend
+  namespace: qrcode
   labels:
     app: qrcode-frontend
 spec:
@@ -20,3 +21,4 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
+          name: frontend-port
