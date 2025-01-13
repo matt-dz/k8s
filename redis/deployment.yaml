@@ -20,6 +20,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 6379
+              name: redis-port
           volumeMounts:
             - name: redis-data
               mountPath: /data
@@ -27,11 +28,10 @@ spec:
               mountPath: /config/redis.conf
               subPath: redis.conf
           command: ["redis-server", "/config/redis.conf"]
-      nodeName: lois
       volumes:
         - name: redis-data
           persistentVolumeClaim:
-            claimName: immich-redis-pvc
+            claimName: redis-pvc
         - name: redis-config
           secret:
             secretName: redis-config
