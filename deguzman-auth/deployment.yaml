@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deguzman-auth
+  namespace: deguzman-auth
   labels:
     app: deguzman-auth
 spec:
@@ -20,6 +21,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+              name: deguzman-auth-port
           envFrom:
             - secretRef:
-                name: deguzman-auth-secrets
+                name: env
