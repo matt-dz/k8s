@@ -7,8 +7,6 @@ spec:
   addresses:
   - 10.0.0.115/32
   - 10.0.0.96/32
-  - 10.0.0.230/32
-  - 10.0.0.249/32
 
 ---
 apiVersion: metallb.io/v1beta1
