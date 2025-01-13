@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dsa-ingress
+  namespace: dsa
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - dsa.deguzman.cloud
+    secretName: dsa-tls
+  rules:
+  - host: dsa.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: dsa-frontend
+              port:
+                number: 80

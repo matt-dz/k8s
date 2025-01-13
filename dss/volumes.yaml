@@ -11,8 +11,8 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    path: /srv/nfs/dss
-    server: 10.0.0.249
+    path: <nfs_path>
+    server: <server_ip>
     readOnly: false
 
 ---

@@ -14,11 +14,14 @@ spec:
       labels:
         app: postgres
     spec:
+      # nodeSelector:
+      #   nfs: true
       containers:
         - name: postgres
           image: postgres:17
           ports:
             - containerPort: 5432
+              name: pg-port
           env:
           - name: PGDATA
             value: "/data"
@@ -26,7 +29,7 @@ spec:
             value: "-c config_file=/config/postgresql.conf"
           envFrom:
           - secretRef:
-              name: postgres-secrets
+              name: postgres-env
           volumeMounts:
             - name: postgres-storage
               mountPath: /data
@@ -37,11 +40,10 @@ spec:
         runAsUser: 999
         runAsGroup: 999
         fsGroup: 999
-      nodeName: lois
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
-            claimName: immich-postgres-pvc
+            claimName: postgres-pvc
         - name: postgres-config
           configMap:
             name: postgres-config

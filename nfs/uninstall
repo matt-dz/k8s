@@ -1,0 +1,1 @@
+helm delete nfs-subdir-external-provisioner

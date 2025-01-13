@@ -14,18 +14,21 @@ spec:
       labels:
         app: dss
     spec:
+      #nodeSelector:
+      #  nfs: "yes"
       containers:
         - name: dss
           image: matthew10125/dss:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
+              name: dss-port
           envFrom:
           - secretRef:
-              name: dss-secrets
+              name: dss-env
           volumeMounts:
             - name: dss-storage
               mountPath: /mnt/dss
-      nodeName: lois
       volumes:
         - name: dss-storage
           persistentVolumeClaim:

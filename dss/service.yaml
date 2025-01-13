@@ -9,5 +9,5 @@ spec:
     app: dss
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: dss-port
   type: ClusterIP

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dsa-frontend
+  namespace: dsa
   labels:
     app: dsa
 spec:
