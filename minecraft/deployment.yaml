@@ -33,6 +33,12 @@ spec:
             value: "300"
           - name: WHITELIST
             value: "" # replace with comma separated list of players
+          - name: MAX_PLAYERS
+            value: 10
+          #- name: ICON
+          #  value: "" # replace with url of logo or mount a volume for the logo
+          #- name: MOTD
+          #  value: "a deguzman.cloud production"
         volumeMounts:
           - name: mc-storage
             mountPath: /data
