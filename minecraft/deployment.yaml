@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft
+  namespace: minecraft
+  labels:
+    app: minecraft
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minecraft
+  template:
+    metadata:
+      labels:
+        app: minecraft
+    spec:
+      containers:
+      - name: minecraft
+        image: itzg/minecraft-server
+        ports:
+        - containerPort: 25565
+        env:
+          - name: EULA
+            value: "TRUE"
+          - name: ENABLE_AUTOPAUSE
+            value: "TRUE"
+          - name: MAX_TICK_TIME
+            value: "-1"
+          - name: AUTOPAUSE_TIMEOUT_INIT
+            value: "600"
+          - name: AUTOPAUSE_TIMEOUT_EST
+            value: "300"
+          - name: WHITELIST
+            value: "" # replace with comma separated list of players
+        volumeMounts:
+          - name: mc-storage
+            mountPath: /data
+      volumes:
+      - name: mc-storage
+        persistentVolumeClaim:
+          claimName: minecraft-pvc

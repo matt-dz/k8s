@@ -4,5 +4,6 @@ metadata:
   name: tcp-services
   namespace: ingress-nginx
 data:
-  5432: "dgc/postgres-service:5432"
-  6379: "dgc/redis-svc:6379"
+  25565: "minecraft/minecraft:25565"
+  #5432: "dgc/postgres-service:5432"
+  #6379: "dgc/redis-svc:6379"

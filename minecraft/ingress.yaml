@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minecraft-ingress
+  namespace: minecraft
+spec:
+  rules:
+    - host: mc.deguzman.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: minecraft
+                port:
+                  number: 25565
+
