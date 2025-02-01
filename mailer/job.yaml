@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mail-sender
+  namespace: mailer
+spec:
+  schedule: "@weekly"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: mail-sender
+              image: matthew10125/mailer
+              volumeMounts:
+              - name: mailer-message
+                mountPath: /mnt
+              env:
+              - name: MESSAGE_PATH
+                value: "/mnt/message.txt"
+              - name: MAIL_FROM
+                value: ""
+              - name: MAIL_REPLY_TO
+                value: ""
+              - name: MAIL_TO
+                value: ""
+              - name: MAIL_SUBJECT
+                value: ""
+              - name: SMTP_USERNAME
+                value: ""
+              - name: SMTP_PASSWORD
+                value: ""
+              - name: SMTP_HOST
+                value: ""
+          volumes:
+            - name: mailer-message
+              configMap:
+                name: mailer-message
+
