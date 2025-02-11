@@ -16,7 +16,7 @@ spec:
         app: dsa-frontend
     spec:
       containers:
-      - name: dgc-frontend
+      - name: dsa-frontend
         image: matthew10125/cop3530
         imagePullPolicy: Always
         ports:
