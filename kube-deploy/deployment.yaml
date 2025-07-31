@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-deploy
+  namespace: kube-deploy
+  labels:
+    app: kube-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-deploy
+  template:
+    metadata:
+      labels:
+        app: kube-deploy
+    spec:
+      serviceAccountName: client-service-account
+      containers:
+      - name: kube-deploy
+        image: matthew10125/kube-deploy:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+        env:
+          - name: MASTER_KEY
+            value: "${MASTER_KEY}"

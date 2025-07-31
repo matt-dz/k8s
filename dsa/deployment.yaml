@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dsa-frontend
+  name: dsa-frontend-arm
   namespace: dsa
   labels:
     app: dsa
@@ -9,15 +9,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dsa-frontend
+      app: dsa-frontend-arm
   template:
     metadata:
       labels:
-        app: dsa-frontend
+        app: dsa-frontend-arm
     spec:
       containers:
-      - name: dsa-frontend
-        image: matthew10125/cop3530
+      - name: dsa-frontend-arm
+        image: matthew10125/cop3530:arm
         imagePullPolicy: Always
         ports:
         - containerPort: 3000

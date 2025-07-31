@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: redirect-ingress
+  namespace: redirect
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - redirect.deguzman.cloud
+    secretName: redirect-tls
+  rules:
+  - host: redirect.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: redirect
+              port:
+                number: 80

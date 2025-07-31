@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  allow-snippet-annotations: "true"
+  annotations-risk-level: Critical
+  compute-full-forwarded-for: "true"
+  enable-real-ip: "true"
+  hsts: "true"
+  http-snippet: |
+    limit_req_zone $binary_remote_addr zone=login_limit:10m rate=10r/m;
+    limit_req_zone $binary_remote_addr zone=verify_limit:10m rate=10r/m;
+    limit_req_zone $binary_remote_addr zone=send_email_limit:10m rate=1r/m;
+    limit_req_zone $binary_remote_addr zone=default_limit:10m rate=10r/s;
+  ssl-redirect: "true"
+  use-forwarded-headers: "false"
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":null,"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"controller","app.kubernetes.io/instance":"ingress-nginx","app.kubernetes.io/name":"ingress-nginx","app.kubernetes.io/part-of":"ingress-nginx","app.kubernetes.io/version":"1.12.0"},"name":"ingress-nginx-controller","namespace":"ingress-nginx"}}
+  creationTimestamp: "2025-01-11T18:32:27Z"
+  labels:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/version: 1.12.0
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  resourceVersion: "6828727"
+  uid: ea78ea4e-3ece-4bcb-9d5d-f39f7548c36a

@@ -5,6 +5,23 @@ metadata:
   namespace: deguzman-auth
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location /api {
+          limit_req zone=default_limit burst=5;
+      }
+
+      location /api/login {
+          limit_req zone=login_limit;
+      }
+
+      location /verify-email {
+          limit_req zone=verify_limit;
+      }
+
+      location /verify-email/send {
+          limit_req zone=send_email_limit;
+      }
+
 spec:
   ingressClassName: nginx
   tls:
@@ -19,6 +36,34 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: deguzman-auth
+              name: auth-frontend
+              port:
+                number: 80
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: auth-backend
+              port:
+                number: 80
+        - path: /api/login
+          pathType: Exact
+          backend:
+            service:
+              name: auth-backend
+              port:
+                number: 80
+        - path: /verify-email
+          pathType: Exact
+          backend:
+            service:
+              name: auth-backend
+              port:
+                number: 80
+        - path: /verify-email/send
+          pathType: Exact
+          backend:
+            service:
+              name: auth-backend
               port:
                 number: 80

@@ -10,11 +10,37 @@ spec:
   tls:
   - hosts:
     - uptime.deguzman.cloud
-    secretName: dgc-tls
+    secretName: kuma-tls
   rules:
   - host: uptime.deguzman.cloud
     http:
       paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: my-uptime-kuma
+              port:
+                number: 3001
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nimbus-reverse-proxy
+  namespace: monitoring
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/upstream-vhost: "status.nimbus.deguzman.cloud"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - status.nimbus.deguzman.cloud
+    secretName: nimbus-rp-tls
+  rules:
+    - host: status.nimbus.deguzman.cloud
+      http:
+        paths:
         - path: /
           pathType: Prefix
           backend:

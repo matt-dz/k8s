@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
+  namespace: "${NAMESPACE}"
   labels:
     app: postgres
 spec:
@@ -14,8 +15,6 @@ spec:
       labels:
         app: postgres
     spec:
-      # nodeSelector:
-      #   nfs: true
       containers:
         - name: postgres
           image: postgres:17
@@ -27,9 +26,10 @@ spec:
             value: "/data"
           - name: POSTGRES_INITDB_ARGS
             value: "-c config_file=/config/postgresql.conf"
-          envFrom:
-          - secretRef:
-              name: postgres-env
+          - name: POSTGRES_USER
+            value: "${POSTGRES_USER}"
+          - name: POSTGRES_PASSWORD
+            value: "${POSTGRES_PASSWORD}"
           volumeMounts:
             - name: postgres-storage
               mountPath: /data

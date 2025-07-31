@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-frontend
+  namespace: deguzman-auth
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: auth-frontend
+          image: matthew10125/deguzman-auth-frontend:latest
+          imagePullPolicy: Always
+          env:
+            - name: VITE_BASE_URL
+              value: "${VITE_BASE_URL}"
+          ports:
+            - containerPort: 3000

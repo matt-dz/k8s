@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redirect
+  namespace: redirect
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: redirect-frontend
+          image: matthew10125/deguzman-redirect:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

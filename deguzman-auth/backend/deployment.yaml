@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-backend
+  namespace: deguzman-auth
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: auth-backend
+          image: matthew10125/deguzman-auth-backend:latest
+          imagePullPolicy: Always
+          env:
+            - name: DATABASE_URL
+              value: "${DATABASE_URL}"
+            - name: BASE_URL
+              value: "${BASE_URL}"
+            - name: ENV
+              value: "${ENV}"
+            - name: SMTP_FROM
+              value: "${SMTP_FROM}"
+            - name: SMTP_HOST
+              value: "${SMTP_HOST}"
+            - name: SMTP_PORT
+              value: "${SMTP_PORT}"
+            - name: SMTP_USERNAME
+              value: "${SMTP_USERNAME}"
+            - name: SMTP_PASSWORD
+              value: "${SMTP_PASSWORD}"
+          ports:
+            - containerPort: 80

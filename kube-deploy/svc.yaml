@@ -1,15 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: boshi-backend
-  namespace: boshi
+  name: kube-deploy
+  namespace: kube-deploy
   labels:
-    app: boshi-backend
+    app: kube-deploy
 spec:
   selector:
-    app: boshi-backend
+    app: kube-deploy
   ports:
     - name: http
+      protocol: TCP
       port: 80
       targetPort: 80
   type: ClusterIP

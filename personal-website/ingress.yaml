@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: personal-website
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - about.deguzman.cloud
+    secretName: personal-website-tls
+  rules:
+  - host: about.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: personal-website
+              port:
+                number: 80

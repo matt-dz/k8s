@@ -12,12 +12,6 @@ spec:
   tls:
   - hosts:
     - deguzman.cloud
-    #- dsa.deguzman.cloud
-    #- api.deguzman.cloud
-    #- auth.deguzman.cloud
-    #- dss.deguzman.cloud
-    #- blog.deguzman.cloud
-    #- qr.deguzman.cloud
     secretName: dgc-tls
   rules:
   - host: deguzman.cloud
@@ -30,64 +24,3 @@ spec:
               name: dgc-frontend-svc
               port:
                 number: 80
-                #        - path: /api
-                #          pathType: Prefix
-                #          backend:
-                #            service:
-                #              name: dgc-backend-svc
-                #              port:
-                #                number: 80
-                #
-                #  - host: api.deguzman.cloud
-                #    http:
-                #      paths:
-                #        - path: /
-                #          pathType: Prefix
-                #          backend:
-                #            service:
-                #              name: dgc-backend-svc
-                #              port:
-                #                number: 80
-                #
-                #  - host: auth.deguzman.cloud
-                #    http:
-                #      paths:
-                #        - path: /
-                #          pathType: Prefix
-                #          backend:
-                #            service:
-                #              name: deguzman-auth
-                #              port:
-                #                number: 80
-                #  - host: dss.deguzman.cloud
-                #    http:
-                #      paths:
-                #        - path: /
-                #          pathType: Prefix
-                #          backend:
-                #            service:
-                #              name: dss
-                #              port:
-                #                number: 80
-                #
-                #  - host: qr.deguzman.cloud
-                #    http:
-                #      paths:
-                #        - path: /api
-                #          pathType: Prefix
-                #          backend:
-                #            service:
-                #              name: qrcode-backend
-                #              port:
-                #                number: 80
-                #
-                #  - host: qr.deguzman.cloud
-                #    http:
-                #      paths:
-                #        - path: /
-                #          pathType: Prefix
-                #          backend:
-                #            service:
-                #              name: qrcode-frontend
-                #              port:
-                #                number: 80

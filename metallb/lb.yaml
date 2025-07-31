@@ -1,10 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ingress-nginx-controller-loadbalancer
+  name: nginx-controller-loadbalancer
   namespace: ingress-nginx
   annotations:
-    #metallb.universe.tf/loadBalancerIPs: 10.0.0.115
     metallb.io/address-pool: default-pool
 spec:
   # externalTrafficPoliy: Local # Preserve client set IP, may cause uneven load balancing
@@ -25,12 +24,4 @@ spec:
       protocol: TCP
       port: 25565
       targetPort: 25565
-      #- name: proxied-tcp-5432
-      #  port: 5432
-      #  targetPort: 5432
-      #  protocol: TCP
-      #- name: proxied-tcp-6379
-      #  port: 6379
-      #  targetPort: 6379
-      #  protocol: TCP
   type: LoadBalancer

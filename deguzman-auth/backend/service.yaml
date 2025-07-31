@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: deguzman-auth
+  name: auth-backend
   namespace: deguzman-auth
   labels:
-    app: deguzman-auth
+    app: auth-backend
 spec:
   selector:
-    app: deguzman-auth
+    app: auth-backend
   ports:
     - port: 80
-      targetPort: deguzman-auth-port
+      targetPort: 80
   type: ClusterIP

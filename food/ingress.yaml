@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: food
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - food.deguzman.cloud
+    secretName: food-tls
+  rules:
+  - host: food.deguzman.cloud
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: food
+              port:
+                number: 80
