@@ -14,8 +14,6 @@ spec:
       labels:
         app: dss
     spec:
-      #nodeSelector:
-      #  nfs: "yes"
       containers:
         - name: dss
           image: matthew10125/dss:latest
