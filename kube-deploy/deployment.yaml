@@ -24,4 +24,4 @@ spec:
           - containerPort: 80
         env:
           - name: MASTER_KEY
-            value: "${MASTER_KEY}"
+            value: secure_key # replace with secure key
