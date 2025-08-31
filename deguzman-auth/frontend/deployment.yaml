@@ -21,6 +21,6 @@ spec:
           imagePullPolicy: Always
           env:
             - name: VITE_BASE_URL
-              value: "${VITE_BASE_URL}"
+              value: example.com
           ports:
             - containerPort: 3000

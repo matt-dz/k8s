@@ -21,20 +21,20 @@ spec:
           imagePullPolicy: Always
           env:
             - name: DATABASE_URL
-              value: "${DATABASE_URL}"
+              value: postgresql://admin:password@example.com:5432/db
             - name: BASE_URL
-              value: "${BASE_URL}"
+              value: example.com
             - name: ENV
-              value: "${ENV}"
+              value: DEV
             - name: SMTP_FROM
-              value: "${SMTP_FROM}"
+              value: from@example.com
             - name: SMTP_HOST
-              value: "${SMTP_HOST}"
+              value: mail.example.com
             - name: SMTP_PORT
-              value: "${SMTP_PORT}"
+              value: 587
             - name: SMTP_USERNAME
-              value: "${SMTP_USERNAME}"
+              value: user
             - name: SMTP_PASSWORD
-              value: "${SMTP_PASSWORD}"
+              value: password
           ports:
             - containerPort: 80
