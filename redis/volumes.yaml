@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "${PV_NAME}"
+  name: redis
   labels:
     app: redis
 spec:
@@ -13,14 +13,13 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
-    path: "${NFS_PATH}"
-    server: "${NFS_SERVER}"
+    path: /path/to/nfs/ # change path
+    server: 127.0.0.1 # change address
     readOnly: false
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: "${NAMESPACE}"
   name: redis-pvc
   labels:
     app: redis
