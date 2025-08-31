@@ -1,2 +1,45 @@
-**.env
+# --- Kubernetes ---
+# Ignore kubectl cache and configs (you'll usually keep kubeconfig outside the repo)
+.kube/
+*.kubeconfig
+*.kubeconfig.*
+
+# Helm output and temp files
+helmfile.d/*.lock
+*.helmfile.lock
+*.tgz
+charts/
+tmpcharts/
+
+# Kustomize build outputs
+*.build.yaml
+*.rendered.yaml
+
+# --- Secrets ---
+# Ignore Kubernetes secret manifests that might be generated locally
+*secret*.yaml
+*secrets*.yaml
+*.enc.yaml
+*.sops.yaml
+
+# --- Common environment files ---
+.env
+.env.*
+!env.example
+
+# --- Editor / OS junk ---
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.iml
+
+# --- Logs ---
+*.log
+logs/
+
 deployed/*
