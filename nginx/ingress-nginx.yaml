@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+spec:
+  type: LoadBalancer
+  ports:
+    - name: smtp-proxy
+      port: 25
+      targetPort: 25
+      protocol: TCP
+    - name: subs-proxy
+      port: 465
+      targetPort: 465
+      protocol: TCP
+    - name: sub-proxy
+      port: 587
+      targetPort: 587
+      protocol: TCP
+    - name: imaps-proxy
+      port: 993
+      targetPort: 993
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+
