@@ -1,4 +1,4 @@
-# Ghost Deployment
+# Ghost (Blog Instance)
 
 Steps to create ghost blog:
 1. Create a mysql database
