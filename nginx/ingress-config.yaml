@@ -1,17 +1,15 @@
-# https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/
 apiVersion: v1
+data:
+  allow-snippet-annotations: "true"
+  annotations-risk-level: "Critical" # ...
 kind: ConfigMap
 metadata:
-  name: tcp-services
+  annotations: {}
+  labels:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/version: 1.12.0
+  name: ingress-nginx-controller
   namespace: ingress-nginx
-data:
-  # Minecraft
-  25565: "minecraft/minecraft:25565"
-
-  # Docker Mailserver
-  25: "mailserver/mailserver:25::PROXY"
-  465: "mailserver/mailserver:465::PROXY"
-  587: "mailserver/mailserver:587::PROXY"
-  993: "mailserver/mailserver:993::PROXY"
-
-

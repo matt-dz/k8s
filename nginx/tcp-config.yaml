@@ -1,0 +1,10 @@
+# https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: ingress-nginx
+data:
+  # Minecraft
+  25565: "minecraft/minecraft:25565"
+
